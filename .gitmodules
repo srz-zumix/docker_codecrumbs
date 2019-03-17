@@ -1,0 +1,3 @@
+[submodule "codecrumbs"]
+	path = codecrumbs
+	url = https://github.com/Bogdan-Lyashenko/codecrumbs.git

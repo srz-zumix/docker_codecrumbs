@@ -35,7 +35,11 @@ RUN mkdir /codecrumbs && \
 COPY webpack.prod.js /codecrumbs/src/public
 WORKDIR /codecrumbs
 RUN find ./src/server -type f -name '*.js' -print0 | xargs -0 grep -l '127.0.0.1' | xargs sed -i.bak -e 's/127\.0\.0\.1/0.0.0.0/g' && \
-    yarn && yarn build && \
+    sed -i.bak -e 's|createConnection(\(.*\));|createConnection(\1, `ws://${window.location.hostname}:3018/`);|g' ./src/public/js/core/dataBus/index.js
+    # sed -i.bak -e 's|createConnection(\(.*\));|createConnection(\1, `ws://${window.location.hostname}:${SERVER_PORT}/`);|g' ./src/public/js/core/dataBus/index.js && \    
+    # sed -i.bak -e 's|import { SOCKET_MESSAGE_TYPE }.*|const { SERVER_PORT, SOCKET_MESSAGE_TYPE } = require("../../../../shared/constants");\n|g' ./src/public/js/core/dataBus/index.js
+    # sed -i.bak -e 's|\(^.*setupLocal()\s*{\)|\1\n    const { SERVER_PORT, SOCKET_MESSAGE_TYPE } = require("../../../../shared/constants");|g' ./src/public/js/core/dataBus/index.js
+RUN yarn && yarn run build && \
     yarn global add /codecrumbs
 
 COPY entrypoint.sh /entrypoint.sh

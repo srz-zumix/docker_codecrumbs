@@ -17,8 +17,8 @@ jobs:
           git submodule foreach git pull origin master
       - name: commit
         run: |
-        - git add -A
-        - git commit -m "update head [ci skip]" || true
+          git add -A
+          git commit -m "update head [ci skip]" || true
       - name:
-        - git push https://${{ secrets.GITHUBPAT }}@github.com/${GITHUB_REPOSITORY}.git master
+          git push https://${{ secrets.GITHUBPAT }}@github.com/${GITHUB_REPOSITORY}.git master
                         

@@ -11,6 +11,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: submodule update
         run: |
+          git fetch
           git checkout master
           git submodule init
           git submodule update

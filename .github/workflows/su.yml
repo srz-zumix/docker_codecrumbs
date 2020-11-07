@@ -20,5 +20,6 @@ jobs:
           git add -A
           git commit -m "update head [ci skip]" || true
       - name:
+        run: |
           git push https://${{ secrets.GITHUBPAT }}@github.com/${GITHUB_REPOSITORY}.git master
                         
